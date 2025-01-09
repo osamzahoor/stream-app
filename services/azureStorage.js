@@ -23,6 +23,10 @@ require('dotenv').config();
 // Azure Storage Middleware Class
 class AzureStorageMiddleware {
     constructor() {
+
+        if (!process.env.AZURE_STORAGE_CONNECTION_STRING || !process.env.CONTAINER_NAME) {
+            throw new Error("Azure Storage configuration is missing");
+        }
          // Load Azure Storage connection details from environment variables
         this.connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
         this.containerName = process.env.CONTAINER_NAME;

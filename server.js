@@ -21,12 +21,14 @@ const mongoose = require('mongoose'); // MongoDB object modeling
 const bodyParser = require('body-parser'); // Middleware for parsing JSON request bodies
 const cors = require('cors'); // Middleware for handling cross-origin requests
 const path = require("path"); // Core Node.js module for working with file paths
+require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
 const videoRoutes = require('./routes/videoRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGOBD_URI;
 
 // Middleware Configuration
 
@@ -40,10 +42,18 @@ var corsOptions = {
   };
 app.use(cors(corsOptions));
 
-// MongoDB Connection 
-mongoose.connect('mongodb+srv://osamzahoor:CyWBNqhb3ovJ81pE@cluster0.axxne.mongodb.net/',{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+// MongoDB Connection with Cosmos DB
+mongoose.connect(
+    `${MONGODB_URI}`, 
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        retryWrites: false, // Cosmos DB does not support retryWrites
+    }
+).then(() => {
+    console.log('Connected to Cosmos DB MongoDB');
+}).catch((err) => {
+    console.error('Error connecting to Cosmos DB MongoDB:', err);
 });
 
 // Route Definitions
