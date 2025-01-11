@@ -6,6 +6,7 @@ import Loader from "./Loader";
 
 const AdminDashboard = () => {
   // State to handle form data (title and hashtags)
+   const navigate = useNavigate();
   const [formData, setFormData] = useState({ title: "", hashtags: "" });
 
   // State to handle the selected video file
@@ -14,8 +15,6 @@ const AdminDashboard = () => {
   // State to manage the upload process (showing loader when uploading)
   const [uploading, setUploading] = useState(false);
 
-  // UseNavigate hook to programmatically navigate the user after upload
-  const navigate = useNavigate();
 
    /**
    * Handle the selection of a video file.
@@ -61,11 +60,33 @@ const AdminDashboard = () => {
       setUploading(false); 
   }
   };
-
+  const handleLogout = () => {
+    // Clear any authentication tokens or session data
+    localStorage.removeItem("token"); 
+    toast.success("Logged out successfully!");
+    navigate("/");
+  };
   return (
     <div className="container mx-auto p-4">
        {uploading && <Loader />}  {/* Show loader while uploading */}
-      <h2 className="text-2xl font-bold">Admin Dashboard</h2>
+       <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Admin Dashboard</h2>
+        {/* Logout Button */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="px-6 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-500"
+        >
+          Logout
+        </button>
+      </div>
+      <button
+          type="button"
+          onClick={() => navigate(-1)} // Go back to the previous page
+          className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-500 mb-4"
+        >
+          Back
+        </button>
       <form onSubmit={handleVideoUpload} className="mt-4">
         {/* Input for video title */}
         <input

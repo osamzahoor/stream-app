@@ -37,6 +37,7 @@ export default function UserDashboard() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const isAuthenticated = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -113,7 +114,7 @@ export default function UserDashboard() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <Link to="/" className="shrink-0">
+                <Link to={isAuthenticated ? "/dashboard": "/"} className="shrink-0">
                   <img
                     alt="Your Company"
                     src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"

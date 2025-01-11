@@ -92,6 +92,13 @@ export default function Feed() {
         style={style} // Required for proper positioning
         className="bg-white shadow rounded-lg overflow-hidden p-4"
       >
+         <button
+          type="button"
+          onClick={() => navigate(-1)} // Go back to the previous page
+          className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-500 mb-4"
+        >
+          Back
+        </button>
         <h3 className="text-lg font-semibold">{video?.title}</h3>
         <video
           controls

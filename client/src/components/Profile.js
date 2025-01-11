@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { getUserProfile, updateUserProfile } from "../services/api";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Profile component: Displays and manages user profile information.
  */
 const Profile = () => {
   // State to store user profile information
+  const navigate = useNavigate();
   const [profile, setProfile] = useState({
     username: "",
     email: "",
@@ -114,6 +116,13 @@ const Profile = () => {
       {loading && <Loader />}
       <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-800">Profile</h1>
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl mx-auto">
+      <button
+          type="button"
+          onClick={() => navigate(-1)} // Go back to the previous page
+          className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-500 mb-4"
+        >
+          Back
+        </button>
         <div className="flex flex-col items-center mb-6">
           <img
             src={avatarPreview || profile.avatarUrl} // Show avatar preview or current avatar
