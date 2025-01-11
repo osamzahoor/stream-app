@@ -92,13 +92,7 @@ export default function Feed() {
         style={style} // Required for proper positioning
         className="bg-white shadow rounded-lg overflow-hidden p-4"
       >
-         <button
-          type="button"
-          onClick={() => navigate(-1)} // Go back to the previous page
-          className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-500 mb-4"
-        >
-          Back
-        </button>
+        
         <h3 className="text-lg font-semibold">{video?.title}</h3>
         <video
           controls
@@ -155,12 +149,19 @@ export default function Feed() {
     <div className="h-screen flex flex-col">
       {loading && <Loader />}
       <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            Videos Feed
-          </h1>
-        </div>
-      </header>
+  <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
+    <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+      Videos Feed
+    </h1>
+    <button
+      type="button"
+      onClick={() => navigate(-1)} 
+      className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-500"
+    >
+      Back
+    </button>
+  </div>
+</header>
       <main className="flex-1">
         <div className="mx-auto max-w-7xl m px-4 py-6 sm:px-6 lg:px-8 h-full">
           {videos.length > 0 ? (
